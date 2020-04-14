@@ -13,28 +13,30 @@
                 {% csrf_token %}
                   <div class="form-group">
                       <label for="name"><i class="zmdi zmdi-account"></i></label>
-                      <input type="text"  style="font-family:Verdana;" name="username" id="name" placeholder="UserName"/>
+                      <input type="text"  style="font-family:Verdana;" name="username" id="name" placeholder="UserName"/ required>
                   </div>
                   <div class="form-group">
                       <label for="email"><i class="zmdi zmdi-email"></i></label>
                       <input type="email"  style="font-family:Verdana;" name="email" id="email" placeholder="Your Email"/>
                   </div>
                   <div class="form-group">
-                    <label for="sapid"><i class="zmdi zmdi-border-color"></i></label>
-                    <input type="text" style="font-family:Verdana;" name="sapid" id="sapid" placeholder="Your SAPID"/>
+                      <label for="sapid"><i class="zmdi zmdi-border-color"></i></label>
+                      <input type="text" style="font-family:Verdana;" name="sapid" id="sapid" placeholder="Your SAPID"/>
                   </div>
-                <div class="form-group">
-                  <label for="department"><i class="zmdi zmdi-file"></i></label>
-                  <input type="text" style="font-family:Verdana;" name="department" id="department" placeholder="Department"/>
-                </div>
-              <div class="form-group">
-                <label for="subject"><i class="zmdi zmdi-graduation-cap"></i></label>
-                <input type="text" style="font-family:Verdana;" name="subject" id="subject" placeholder="Subject Taught"/>
-              </div>
-            <div class="form-group">
-              <label for="div"><i class="zmdi zmdi-book"></i></label>
-              <input type="text" style="font-family:Verdana;" name="div" id="div" placeholder="Class/Div"/>
-          </div>
+                  <div class="form-group">
+                      <label for="department"><i class="zmdi zmdi-file"></i></label>
+                      <input type="text" style="font-family:Verdana;" name="department" id="department" placeholder="Department"/>
+                  </div>
+                  <!--
+                  <div class="form-group">
+                     <label for="subject"><i class="zmdi zmdi-graduation-cap"></i></label>
+                     <input type="text" style="font-family:Verdana;" name="subject" id="subject" placeholder="Subject Taught"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="div"><i class="zmdi zmdi-book"></i></label>
+                    <input type="text" style="font-family:Verdana;" name="div" id="div" placeholder="Class/Div"/>
+                   </div>
+                  -->
                   <div class="form-group">
                       <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                       <input type="password" style="font-family:Verdana;" name="pass1" id="pass" placeholder="Password"/>
@@ -43,15 +45,20 @@
                       <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                       <input type="password" style="font-family:Verdana;" name="pass2" id="re_pass" placeholder="Confirm password"/>
                   </div>
+                  <div class="form-group form-button">
+                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                  </div>
+                
+                  
               </form>
             </div>
+           
               <div class="signup-image">
                 <figure><img src="{% static 'images/signup-image.jpg' %}" alt="sing up image" style="margin-top:30px;"></figure>
-                <div class="form-group form-button" style="position:absolute; left:62%;top:100%;">
-                  <input type="submit" style="font-family:Verdana;" name="signup" id="signup" class="form-submit" value="Submit"/>
-                </div>
-           
-          </div>
+              </div>
+              
+              
+        
       </div>
   </div>
 </section>

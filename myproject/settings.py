@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from django.contrib.messages import constants as messages
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -133,3 +136,7 @@ STATIC_ROOT=os.path.join(BASE_DIR,'assests')
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+MESSAGE_TAGS = {
+    messages.ERROR:'danger'
+}

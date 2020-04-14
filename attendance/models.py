@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser,BaseUserManager
+from django.db.models.fields import BLANK_CHOICE_DASH
+
 
 # Create your models here.
 class MyAccountManager(BaseUserManager):
-     def create_user(self,email,username,sapid,department,subject,div,password=None):
+     def create_user(self,email,username,sapid,department,password=None):
          if not email:
              raise ValueError("Users must have an email address")
          if not username:
@@ -14,8 +16,8 @@ class MyAccountManager(BaseUserManager):
              username=username,
              sapid=sapid,
              department=department,
-             subject=subject,
-             div=div,
+             #subject=subject,
+             #div=div,
 
             
          )
@@ -23,15 +25,15 @@ class MyAccountManager(BaseUserManager):
          user.save(using=self._db)
          return user
 
-     def create_superuser(self,email,username,sapid,department,subject,div,password):
+     def create_superuser(self,email,username,sapid,department,password):
          user=self.create_user(
              email=self.normalize_email(email),
              username=username,
              password=password,
              sapid=sapid,
              department=department,
-             subject=subject,
-             div=div,
+             #subject=subject,
+             #div=div,
 
          )
 
@@ -47,8 +49,8 @@ class Account(AbstractBaseUser,PermissionsMixin):
      username=models.CharField(max_length=50,unique=True)
      sapid=models.BigIntegerField()
      department=models.CharField(max_length=30)
-     subject=models.CharField(max_length=30)
-     div=models.CharField(max_length=10)
+     #subject=models.CharField(max_length=30)
+     #div=models.CharField(max_length=10)
      is_admin=models.BooleanField(default=False)
      is_active=models.BooleanField(default=True)
      is_staff=models.BooleanField(default=False)
@@ -56,7 +58,8 @@ class Account(AbstractBaseUser,PermissionsMixin):
 
 
      USERNAME_FIELD='email'
-     REQUIRED_FIELDS=['username','sapid','department','subject','div']
+     REQUIRED_FIELDS=['username','sapid','department'
+     ]
 
      objects=MyAccountManager()
 
@@ -66,5 +69,31 @@ class Account(AbstractBaseUser,PermissionsMixin):
          return self.is_admin
      def has_module_perms(self,app_model):
          return True
+
+SUBJECT_CHOICES=(
+
+    ('OSTL','OSTL'),
+    ('COA','COA'),
+    ('AOAD','AOAD'),
+    ('OS','OS'),
+    ('MATH','MATH'),
+    ('CG','CG'),
+  )
+DIV_CHOICES=(
+    ('SE/A','SE/A'),
+    ('SE/B','SE/B'),
+    ('TE/A','TE/A'),
+    ('TE/B','TE/B'),
+)
+
+class New(models.Model):
+    subject=models.CharField(choices=SUBJECT_CHOICES,max_length=30,default="")
+    division=models.CharField(choices=DIV_CHOICES,max_length=30,default="")
+    acc=models.ForeignKey(Account, on_delete=models.CASCADE,default="")
+
+class Manual(models.Model):
+    sr_no=models.CharField(max_length=10)
+    name=models.CharField(max_length=10)
+    status=models.CharField(max_length=10)
 
 

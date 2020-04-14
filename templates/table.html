@@ -1,4 +1,10 @@
-<div class="container" style="text-align:center; padding: 10px;margin-top:20px; border: 1px solid black; border-collapse: collapse;">
+{% extends 'base.html' %}
+
+{% block title%}Attendance{% endblock title %}
+{%load static %}
+{% block body%}
+<p><h3 style="text-align:center;">Attendance Sheet</h3></p>  
+<div class="row" style="text-align:center; padding: 10px;margin-top:50px; border: 1px solid black;">
     <table class="table" style="width:70%; margin-left:15%;  margin-right:15%;">
     
   
@@ -14,12 +20,46 @@
        
         {% for key,value in message.items %}
         <tr>
-           
             <td class="text-center">{{forloop.counter}}</td>
             <td>{{key}}</td>
             <td>{{value}}</td>
         </tr>
         {% endfor %}
     </tbody>
-</table>
+      </table>
 </div>
+<button type="submit" class="btn btn-white" onclick="displayForm()">Manually Add Attendance</a>
+    <script>
+        function displayForm() {
+            document.getElementById('countform').style.display = 'block';
+        }
+    </script>
+    <form method='POST' action="{% url 'counter' %}"id="countform" style="display: none;">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="count">Sr.No</label>
+            <input type="text" id="count" name="count" placeholder="Enter number of students" class="form-control" />
+            <button type="submit" class="btn btn-primary" style="background-color:#EE4266;">Save Count</button>
+        </div>
+    </form>
+<a href="{% url 'manage' %}" class="btn btn-white" type="submit">Manage Attendance</a> 
+{% if user.is_authenticated %}
+<div class="col1" style="float:left;width:250px;margin-top:50px;margin-left:50px">   
+    <div style="font-family:Verdana;padding-top:10px">TEACHING FACULTY:</div>                       
+    <div style="font-family:Verdana;padding-top:10px">SAPID:</div>
+    <div style="font-family:Verdana;padding-top:10px">DEPARTMENT:</div> 
+    <div style="font-family:Verdana;padding-top:10px">SUBJECT:</div>
+    <div style="font-family:Verdana;padding-top:10px">CLASS/DIV:</div>                           
+</div>
+
+<div class="col2" style="float:left;width:200px;margin-left:40px;margin-top:50px;">
+    <div style="font-family:Verdana;padding-top:10px">{{user.username}}</div>
+    <div style="font-family:Verdana;padding-top:10px">{{user.sapid}}</div>
+    <div style="font-family:Verdana;padding-top:10px">{{user.department}}</div> 
+    {% for n in new %}  
+    <div style="font-family:Verdana;padding-top:10px">{{n.subject}}</div>
+    <div style="font-family:Verdana;padding-top:10px">{{n.division}}</div>
+    {% endfor %}                    
+</div>
+{% endif %}
+{%endblock body%}

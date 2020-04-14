@@ -1,5 +1,3 @@
-
-
 from imutils.video import VideoStream
 from imutils.video import FPS
 import numpy as np
@@ -9,9 +7,14 @@ import pickle
 import time
 import cv2
 import os
+import csv
+from attendance.models import Account,New
+from attendance.forms import UserCreationForm
+from django.contrib.auth.models import auth
 
 
 def recognize():
+
     # construct the argument parser and parse the arguments
     '''ap = argparse.ArgumentParser()
     ap.add_argument("-d", "--detector", 
@@ -144,5 +147,13 @@ def recognize():
     vs.stop()
     #print(d)
     mydict=d
-   
+
+    #accounts = Account.objects.all().values_list('email', 'username', 'sapid', 'department')
+    #accounts=user.is_authenticated
+    with open('data.csv', 'w') as f:
+        writer = csv.writer(f)
+        writer.writerow(['Name', 'Attendance'])
+        for key in mydict.keys():
+            f.write("%s, %s\n" % (key, mydict[key]))
+    print(f)
     return mydict

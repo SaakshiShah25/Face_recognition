@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+<link href="mycss.css" rel="stylesheet" />
+{% block title%}Classes{% endblock title %}
+{%load static %}
+{% block body%}
+<div class="container my-4">
+    <form method='POST' >
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary" style="background-color:#EE4266;">Submit</button>
+        <a href="table" class="btn btn-white" type="submit" > Take Attendance</button>
+    </form>
+</div>
+{% endblock body %}

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.db.models import Q
-
+from django.forms import ModelForm
+from .models import New
 User=get_user_model()
 
 class UserCreationForm(forms.ModelForm):
@@ -15,8 +16,8 @@ class UserCreationForm(forms.ModelForm):
             'email',
             'sapid',
             'department',
-            'subject',
-            'div',
+            #'subject',
+            #'div',
         ]
 
     def clean_password(self):
@@ -30,8 +31,8 @@ class UserCreationForm(forms.ModelForm):
         user=super(UserCreationForm,self).save(commit=False)
         user.set_password(self.cleaned_data['pass1'])
         user.username=self.cleaned_data['username']
-        user.subject=self.cleaned_data['subject']
-        user.div=self.cleaned_data['div']
+        #user.subject=self.cleaned_data['subject']
+        #user.div=self.cleaned_data['div']
         user.sapid=self.cleaned_data['sapid']
         user.department=self.cleaned_data['department']
 
@@ -39,6 +40,22 @@ class UserCreationForm(forms.ModelForm):
              user.save()
 
         return user
+class NewForm(ModelForm):
+    class Meta:
+        model=New
+        fields=[
+            'subject',
+            'division',
+            'acc',
+        ]
+        widgets={
+            'subject':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle dropdown-toggle-split',
+                                          'id':'dropdownMenuButton',}),
+            'division':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle',
+                                            'id':'dropdownMenuButton',}),
+            'acc':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle',
+                                        'id':'dropdownMenuButton',})
+        }
 
 
 
