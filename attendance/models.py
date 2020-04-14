@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser,BaseUserManager
-from django.db.models.fields import BLANK_CHOICE_DASH
+
 
 
 # Create your models here.
@@ -16,9 +16,7 @@ class MyAccountManager(BaseUserManager):
              username=username,
              sapid=sapid,
              department=department,
-             #subject=subject,
-             #div=div,
-
+             
             
          )
          user.set_password(password)
@@ -32,9 +30,7 @@ class MyAccountManager(BaseUserManager):
              password=password,
              sapid=sapid,
              department=department,
-             #subject=subject,
-             #div=div,
-
+             
          )
 
          user.is_admin=True
@@ -49,8 +45,6 @@ class Account(AbstractBaseUser,PermissionsMixin):
      username=models.CharField(max_length=50,unique=True)
      sapid=models.BigIntegerField()
      department=models.CharField(max_length=30)
-     #subject=models.CharField(max_length=30)
-     #div=models.CharField(max_length=10)
      is_admin=models.BooleanField(default=False)
      is_active=models.BooleanField(default=True)
      is_staff=models.BooleanField(default=False)
