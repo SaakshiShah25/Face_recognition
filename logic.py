@@ -147,13 +147,12 @@ def recognize():
     vs.stop()
     #print(d)
     mydict=d
+    with open('data.pkl', 'wb') as f:
+        pickle.dump(mydict, f)
+        f.close()
 
-    #accounts = Account.objects.all().values_list('email', 'username', 'sapid', 'department')
-    #accounts=user.is_authenticated
-    with open('data.csv', 'w') as f:
-        writer = csv.writer(f)
-        writer.writerow(['Name', 'Attendance'])
-        for key in mydict.keys():
-            f.write("%s, %s\n" % (key, mydict[key]))
-    print(f)
     return mydict
+    
+   
+
+

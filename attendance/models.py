@@ -74,20 +74,21 @@ SUBJECT_CHOICES=(
     ('CG','CG'),
   )
 DIV_CHOICES=(
-    ('SE/A','SE/A'),
-    ('SE/B','SE/B'),
-    ('TE/A','TE/A'),
-    ('TE/B','TE/B'),
+    ('SE-A','SE-A'),
+    ('SE-B','SE-B'),
+    ('TE-A','TE-A'),
+    ('TE-B','TE-B'),
 )
 
 class New(models.Model):
     subject=models.CharField(choices=SUBJECT_CHOICES,max_length=30,default="")
     division=models.CharField(choices=DIV_CHOICES,max_length=30,default="")
     acc=models.ForeignKey(Account, on_delete=models.CASCADE,default="")
-
+    
 class Manual(models.Model):
     sr_no=models.CharField(max_length=10)
     name=models.CharField(max_length=10)
     status=models.CharField(max_length=10)
+
 
 

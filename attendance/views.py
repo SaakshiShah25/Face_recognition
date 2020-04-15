@@ -6,12 +6,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from logic import recognize
 from .models import Account,New,Manual
 import csv
+import pickle
 import pandas as pd
 from csv import writer
 from django.contrib import messages
 from django.contrib.auth.models import auth
-from bs4 import BeautifulSoup
-import requests
+
 
 
 
@@ -79,16 +79,6 @@ def logout_view(request):
 
 def table(request):
     message=recognize()
-    with open('data.csv','a+',newline='') as response:
-                writer = csv.writer(response)
-                writer.writerow(['Email', ' UserName', 'SapId', 'Department',])
-                accounts = Account.objects.all().values_list('email', 'username', 'sapid', 'department')
-                accounts=request.user
-                writer.writerow([accounts.email,accounts.username,accounts.sapid,accounts.department])
-                writer.writerow(['Subject','Division'])
-                new=New.objects.filter(acc=request.user).values_list('subject','division')
-                for xyz in new:
-                    writer.writerow(xyz)
     new=New.objects.filter(acc=request.user)
     context={'message':message,'new':new}
     return render(request,'table.html',context)                
@@ -101,7 +91,6 @@ def add(request):
             new.subject=request.POST['subject']
             new.division=request.POST['division']
             new.save()
-            #mynew=New.objects.filter(acc=request.user)
             messages.success(request,"Details submitted successfully!")
             return redirect('add')
     else:
@@ -114,45 +103,34 @@ def add(request):
             context={'form':form,'mynew':mynew}
             return render(request,'add.html',context)
 
-def counter(request):
-    if request.method=='POST':
-        count=request.POST['count']
-    return count
 
+def idk(d,request):
+    new=New.objects.filter(acc=request.user).values_list('subject','division')
+    accounts = Account.objects.all().values_list('email', 'username', 'sapid', 'department')
+    accounts=request.user
+   
+    with open(str(accounts.sapid) + '_' + accounts.department +'_' +new[0][0] +'_' + new[0][1] + '.csv', 'w',newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(['Name', 'Attendance'])
+        for key in d.keys():
+            f.write("%s, %s\n" % (key,d[key]))
+        writer.writerow(['Email', ' UserName', 'SapId', 'Department',])
+        accounts = Account.objects.all().values_list('email', 'username', 'sapid', 'department')
+        accounts=request.user
+        print(accounts)
+        writer.writerow([accounts.email,accounts.username,accounts.sapid,accounts.department])
+        writer.writerow(['Subject','Division'])
+        for xyz in new:
+            writer.writerow(xyz)
+   
 
-def manage(request):
-    #gotcount=counter(request)
-    #context={'gotcount':gotcount}
-    return render(request,'manual.html')
+def final_csv(request):
+    with open('data.pkl', 'rb') as f:
+        mydict = pickle.load(f)
+        f.close()
+    idk(mydict,request)
+    return HttpResponse("Done!")
 
-def remove_data(request):
-    Manual.objects.all().delete()
-    return render(request,'manual.html')
-
-def manual(request):
-    if request.method=='POST':
-        sr_no=request.POST['sr_no']
-        name=request.POST['name']
-        status=request.POST['status']
-        manual=Manual(sr_no=sr_no,name=name,status=status)
-        manual.save()
-        messages.success(request,"Your attendance has been recorded!")
-    return render(request,'manual.html')
-
-def update(request):
-    with open('data.csv','a+',newline='') as response:
-        writer = csv.writer(response)
-        manual = Manual.objects.all().values_list('name', 'status')
-        for m in manual:
-         writer.writerow(m)
-    return HttpResponse("Task done!!!")
     
-def dict_update(request):
-    mdict=mydict
-    manual=Manual.objects.all().values_list('name','status')
-    for m in manual:
-        mdict.update({m[0]:m[1]})
-    print(mdict)
-    return HttpResponse("Updated Dictionary!!")
-    
+
     

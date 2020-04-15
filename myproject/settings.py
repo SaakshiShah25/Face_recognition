@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,5 @@ LOGOUT_REDIRECT_URL = 'home'
 MESSAGE_TAGS = {
     messages.ERROR:'danger'
 }
+
+CRISPY_TEMPLATE_PACK='bootstrap4'

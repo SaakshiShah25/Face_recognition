@@ -28,21 +28,7 @@
     </tbody>
       </table>
 </div>
-<button type="submit" class="btn btn-white" onclick="displayForm()">Manually Add Attendance</a>
-    <script>
-        function displayForm() {
-            document.getElementById('countform').style.display = 'block';
-        }
-    </script>
-    <form method='POST' action="{% url 'counter' %}"id="countform" style="display: none;">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="count">Sr.No</label>
-            <input type="text" id="count" name="count" placeholder="Enter number of students" class="form-control" />
-            <button type="submit" class="btn btn-primary" style="background-color:#EE4266;">Save Count</button>
-        </div>
-    </form>
-<a href="{% url 'manage' %}" class="btn btn-white" type="submit">Manage Attendance</a> 
+<a href="final_csv" class="btn btn-white" type="submit"> Final CSV</a>
 {% if user.is_authenticated %}
 <div class="col1" style="float:left;width:250px;margin-top:50px;margin-left:50px">   
     <div style="font-family:Verdana;padding-top:10px">TEACHING FACULTY:</div>                       

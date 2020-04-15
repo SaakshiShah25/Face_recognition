@@ -16,8 +16,6 @@ class UserCreationForm(forms.ModelForm):
             'email',
             'sapid',
             'department',
-            #'subject',
-            #'div',
         ]
 
     def clean_password(self):
@@ -31,8 +29,6 @@ class UserCreationForm(forms.ModelForm):
         user=super(UserCreationForm,self).save(commit=False)
         user.set_password(self.cleaned_data['pass1'])
         user.username=self.cleaned_data['username']
-        #user.subject=self.cleaned_data['subject']
-        #user.div=self.cleaned_data['div']
         user.sapid=self.cleaned_data['sapid']
         user.department=self.cleaned_data['department']
 
@@ -49,14 +45,14 @@ class NewForm(ModelForm):
             'acc',
         ]
         widgets={
-            'subject':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle dropdown-toggle-split',
+            'subject':forms.Select(attrs={'class':'btn btn-secondary dropdown-toggle',
                                           'id':'dropdownMenuButton',}),
-            'division':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle',
+            'division':forms.Select(attrs={'class':'btn btn-secondary dropdown-toggle',
                                             'id':'dropdownMenuButton',}),
-            'acc':forms.Select(attrs={'class':'btn btn-primary dropdown-toggle',
+            'acc':forms.Select(attrs={'class':'btn btn-secondary dropdown-toggle',
                                         'id':'dropdownMenuButton',})
         }
-
+        
 
 
 
