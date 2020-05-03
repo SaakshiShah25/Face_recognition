@@ -4,18 +4,13 @@ from .forms import UserCreationForm,NewForm
 from django.contrib.auth import logout,get_user_model,authenticate,login
 from django.contrib.auth.forms import AuthenticationForm
 from logic import recognize
-from .models import Account,New,Manual
+from .models import Account,New
 import csv
 import pickle
 import pandas as pd
 from csv import writer
 from django.contrib import messages
 from django.contrib.auth.models import auth
-
-
-
-
-
 
 
 # Create your views here.

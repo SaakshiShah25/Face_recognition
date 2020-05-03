@@ -85,10 +85,5 @@ class New(models.Model):
     division=models.CharField(choices=DIV_CHOICES,max_length=30,default="")
     acc=models.ForeignKey(Account, on_delete=models.CASCADE,default="")
     
-class Manual(models.Model):
-    sr_no=models.CharField(max_length=10)
-    name=models.CharField(max_length=10)
-    status=models.CharField(max_length=10)
-
 
 

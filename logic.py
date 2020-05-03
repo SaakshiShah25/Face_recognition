@@ -114,8 +114,10 @@ def recognize():
                 print(proba)
                 name = le.classes_[j] #This gives the name of detection
                 print(name)
-                if proba>0.70:
-                        d.update({name:1})
+                if proba >0.95:
+                    d.update({name:1})
+                if proba <0.95:
+                    name='Unknown'
 
                 # draw the bounding box of the face along with the
                 # associated probability

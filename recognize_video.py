@@ -113,7 +113,9 @@ while True:
 			print(name)
 			if proba>0.95:
     				d.update({name:1})
-
+			if proba<0.95:
+    				name = 'Unknown'
+					
 			# draw the bounding box of the face along with the
 			# associated probability
 			text = "{}: {:.2f}%".format(name, proba * 100)

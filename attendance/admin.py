@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Account,New,Manual
+from .models import Account,New
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .forms import UserCreationForm
 
@@ -20,4 +20,3 @@ class UserAdmin(BaseUserAdmin):
 
 admin.site.register(Account,UserAdmin)
 admin.site.register(New)
-admin.site.register(Manual)
